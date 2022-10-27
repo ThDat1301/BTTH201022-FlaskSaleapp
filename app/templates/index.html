@@ -1,3 +1,32 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Trang chủ{% endblock %}
+{% block content %}
+<div class="container">
+    <form class="filter-product">
+        <input type="text" name="keyword" class="kw-name" placeholder="Nhập tên sản phẩm">
+        <input type="number" name="from_price" class="from-price" placeholder="Nhập giá bắt đầu">
+        <input type="number" name="to_price" class="to-price" placeholder="Nhập giá kết thúc">
+        <input type="submit" value="Tìm">
+    </form>
+    <div class="row">
+        {% for product in products %}
+        <div class="col-lg-3 col-sm-6" style="padding: 1rem">
+            <div class="card">
+                <img class="card-img-top" src="{{product.image}}" alt="{{product.name}}">
+                <div class="card-body">
+                    <h4 class="card-title">{{product.name}}</h4>
+                    <p class="card-text">{{ "{:,.1f}".format(product.price) }} VNĐ</p>
+                    <a href="{{ url_for('product_detail', product_id = product.id) }}" class="btn btn-primary">Chi tiết</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,42 +40,7 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">Trang chủ</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="mynavbar">
-            <ul class="navbar-nav me-auto">
-                {% for cate in categories %}
-                <li class="nav-item">
-                    <a class="nav-link" href="/?category_id={{ cate.id }}">{{cate.name}}</a>
-                </li>
-                {% endfor %}
-            </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="text" placeholder="Search">
-                <button class="btn btn-primary" type="button">Search</button>
-            </form>
-        </div>
-    </div>
-</nav>
-<div class="container">
-    <div class="row">
-        {% for product in products %}
-        <div class="col-lg-3 col-sm-6" style="padding: 1rem">
-            <div class="card">
-                <img class="card-img-top" src="{{product.image}}" alt="{{product.name}}">
-                <div class="card-body">
-                    <h4 class="card-title">{{product.name}}</h4>
-                    <p class="card-text">{{ "{:,.1f}".format(product.price) }} VNĐ</p>
-                    <a href="#" class="btn btn-primary">Chi tiết</a>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-</div>
+
+
 </body>
 </html>

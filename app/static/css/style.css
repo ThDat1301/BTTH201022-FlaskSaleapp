@@ -2,3 +2,11 @@ body {
     background-color: lightblue;
 }
 
+.product-img {
+    width: 100%;
+}
+
+.product-detail div {
+    width: 50%;
+}
+
