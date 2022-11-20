@@ -1,20 +1,49 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+<nav class="navTest navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Trang chủ</a>
+        <a class="navbar-brand" href="/"><img style="width: 30px" src="https://media.istockphoto.com/vectors/online-shop-logo-design-template-vector-id1150644423?k=20&m=1150644423&s=612x612&w=0&h=xKnuj3AhBbMAjxnJdT6Mh7o4BDIGaEwyol33tRwG7mU=" alt=""></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav me-auto">
+                 <li class="nav-item">
+                    <a class="nav-link {% if 'category_id' not in request.args %}active{% endif %}" href="/">Trang chủ</a>
+                </li>
                 {% for cate in categories %}
-                <li class="nav-item">
-                    <a class="nav-link" href="/?category_id={{ cate.id }}">{{cate.name}}</a>
+                <li class="nav-item ">
+                    <a class="nav-link {% if 'category_id' in request.args and cate.id == request.args.category_id|int %}active{% endif %} " href="/?category_id={{ cate.id }}">{{cate.name}}</a>
                 </li>
                 {% endfor %}
+                {% if current_user.is_authenticated %}
+                <li class="nav-item ">
+                    <a class="nav-link text-info" href="{{ url_for('home') }}">
+                        {{ current_user.username }}
+                        {% if current_user.avatar %}
+                            <img class="rounded-circle" src="{{ current_user.avatar }}" alt="{{ current_user.name }}" width="30px", height="30px">
+                        {% else %}
+                            <img class="rounded-circle" src="https://res.cloudinary.com/dgyytgkae/image/upload/v1667086059/dfuser_tgyknk.png" alt="{{ current_user.name }}" width="30px", height="30px">
+                        {% endif %}
+                    </a>
+                </li>
+                 <li class="nav-item ">
+                    <a class="nav-link text-success" href="{{ url_for('user_signout') }}">Đăng xuất</a>
+                </li>
+                {% else %}
+                <li class="nav-item ">
+                    <a class="nav-link text-info" href="{{ url_for('user_register') }}">Đăng ký</a>
+                </li>
+                 <li class="nav-item ">
+                    <a class="nav-link text-success" href="{{ url_for('user_signin') }}">Đăng nhập</a>
+                </li>
+                {% endif %}
+                 <li class="nav-item ">
+                    <a class="nav-link text-success" href="{{ url_for('cart') }}">Giỏ hàng <span id="cart_counter" class="badge badge-info bg-info">{{ cart_stats.total_quantity }}</span></a>
+                </li>
             </ul>
+
             <form class="d-flex">
-                <input class="form-control me-2" type="text" placeholder="Search">
-                <button class="btn btn-primary" type="button">Search</button>
+                <input class="form-control me-2 kw-name" name="keyword" type="text" placeholder="Nhập sản phẩm...">
+                <input type="submit" class="btn btn-primary" type="button" value="Tìm kiếm">
             </form>
         </div>
     </div>

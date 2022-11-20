@@ -1,5 +1,5 @@
 body {
-    background-color: lightblue;
+    background-color: #ffffff;
 }
 
 .product-img {
@@ -9,4 +9,5 @@ body {
 .product-detail div {
     width: 50%;
 }
+
 

@@ -1,0 +1,17 @@
+{% extends 'layout/base.html' %}
+{% block title %}Chi tiết sản phẩm{% endblock %}
+{% block content %}
+<h1 class="text-center text-success">Chi tiết sản phẩm</h1>
+<div class="container d-flex flex-nowrap product-detail">
+    <div class="col-lg-6">
+        <img class="product-img" src="{{product.image}}" alt="">
+    </div>
+    <div class="container col-lg-6">
+        <h2>{{ product.name }}</h2>
+        <p>Thông tin sản phẩm: {{ product.description }}</p>
+        <p>Giá: {{ "{:,.1f}".format(product.price) }} VNĐ</p>
+
+    </div>
+</div>
+{% endblock %}
+
